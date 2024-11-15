@@ -1,91 +1,76 @@
-//
-//  Registrarte.swift
-//  prueba4
-//
-//  Created by Cristian Gaytan on 12/11/24.
-//
-
-
 import SwiftUI
+import CoreData
 
 struct Registrate: View {
     @State private var showARMenu = false
-    @State private var showARMenu2 = false// Controla si se muestra el menú AR
-    
-    @State private var email = "" // Campo de correo electrónico
-    @State private var password = "" // Campo de contraseña
-    @State private var address = "" // Campo de dirección
-    @State private var phoneNumber = "" // Campo de número de teléfono
+    @State private var showARMenu2 = false
+    @State private var showErrorAlert = false
+    @State private var email = ""
+    @State private var password = ""
+    @State private var address = ""
+    @State private var phoneNumber = ""
+    @State private var firstName = ""
+    @State private var lastName = ""
+    @State private var alertMessage = ""
     
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
                 
-                Image("ca") // Usa el nombre de tu imagen aquí
+                Image("ca")
                     .resizable()
                     .frame(width: 200, height: 200)
                     .padding()
                     .foregroundColor(.red)
                 
                 Text("Bienvenido(a)")
-                    .font(.system(size: 24, weight: .regular, design: .rounded)) // Cambiar el tamaño de la fuente
-                    .italic() // Cursiva
-                    .foregroundColor(.red) // Color rojo
+                    .font(.system(size: 24, weight: .regular, design: .rounded))
+                    .italic()
+                    .foregroundColor(.red)
                     .padding()
                 
-                // Campo de texto para el nombre
-                TextField("Nombre(s)", text: $email)
+                TextField("Nombre(s)", text: $firstName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
-                // Campo de texto para los apellidos
-                TextField("Apellido(s)", text: $email)
+                TextField("Apellido(s)", text: $lastName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
-                // Campo de texto para el correo electrónico
                 TextField("Correo electrónico", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
-                // Campo de texto para la contraseña
                 SecureField("Contraseña", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
-                // Campo de texto para la dirección
                 TextField("Dirección", text: $address)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
-                // Campo de texto para el número de teléfono
                 TextField("Número de teléfono", text: $phoneNumber)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.phonePad) // Para mostrar el teclado numérico
+                    .keyboardType(.phonePad)
                     .padding()
                 
-                HStack{   // Botón para registrarse
+                HStack {
                     Button(action: {
-                        // Acción para registrarse, puedes agregar validaciones aquí
-                        print("Correo: \(email), Contraseña: \(password), Dirección: \(address), Teléfono: \(phoneNumber)")
-                        showARMenu = true // Muestra el menú AR
+                        saveUser() // Guardar los datos en Core Data
+                        clearFields() // Limpiar los campos después de guardar
+                        
                     }) {
-                        Text("Registrarte")
+                        Text("Guardar")
                             .font(.title)
                             .padding()
                             .background(Color.red)
                             .foregroundColor(.white)
                             .cornerRadius(30)
                     }
-                    .fullScreenCover(isPresented: $showARMenu) {
-                        // Llamada a la vista cuando se presione el botón
-                        ContentView()
-                    }
                     
-                    // Botón para cancelar
+                    
                     Button(action: {
-                        // Acción para cancelar, puedes agregar validaciones aquí
-                        showARMenu2 = true // Muestra el menú AR
+                        showARMenu2 = true
                     }) {
                         Text("Cancelar")
                             .font(.title)
@@ -95,12 +80,55 @@ struct Registrate: View {
                             .cornerRadius(30)
                     }
                     .fullScreenCover(isPresented: $showARMenu2) {
-                        // Llamada a la vista cuando se presione el botón
                         WelcomeView()
+                    }
+                    .alert(isPresented: $showErrorAlert) {
+                        Alert(
+                            title: Text("Resultado"),
+                            message: Text(alertMessage),
+                            dismissButton: .default(Text("Aceptar"))
+                        )
                     }
                 }
                 .padding()
             }
         }
     }
+    
+    // Función para guardar datos en Core Data
+    private func saveUser() {
+        let context = CoreDataManager.shared.context
+           
+        // Crear un nuevo objeto 'User'
+        let newUser = User(context: context)
+        
+        // Asignar valores a los atributos de 'User'
+        newUser.nombres = firstName
+        newUser.apellidos = lastName
+        newUser.correo = email
+        newUser.contra = password
+        newUser.direccion = address
+        newUser.telefono = phoneNumber
+        
+        // Guardar el contexto
+        do {
+            try context.save()
+            alertMessage = "Usuario guardado con éxito"
+            showErrorAlert = true // Mostrar el alert con éxito
+        } catch {
+            alertMessage = "Error al guardar usuario: \(error)"
+            showErrorAlert = true // Mostrar el alert con error
+        }
+    }
+
+    // Función para limpiar los campos de texto
+    private func clearFields() {
+        firstName = ""
+        lastName = ""
+        email = ""
+        password = ""
+        address = ""
+        phoneNumber = ""
+    }
 }
+

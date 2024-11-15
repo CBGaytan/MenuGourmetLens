@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B527ED752CE7BEDE005493B7 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B527ED732CE7BEDE005493B7 /* User+CoreDataClass.swift */; };
+		B527ED762CE7BEDE005493B7 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B527ED742CE7BEDE005493B7 /* User+CoreDataProperties.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		B5CF9A062CC74A8900C511DB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B527ED732CE7BEDE005493B7 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "User+CoreDataClass.swift"; path = "prueba4/User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B527ED742CE7BEDE005493B7 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "User+CoreDataProperties.swift"; path = "prueba4/User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B5CF99F52CC74A8600C511DB /* prueba4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = prueba4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5CF9A052CC74A8900C511DB /* prueba4Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = prueba4Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5CF9A0F2CC74A8900C511DB /* prueba4UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = prueba4UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +82,8 @@
 		B5CF99EC2CC74A8600C511DB = {
 			isa = PBXGroup;
 			children = (
+				B527ED732CE7BEDE005493B7 /* User+CoreDataClass.swift */,
+				B527ED742CE7BEDE005493B7 /* User+CoreDataProperties.swift */,
 				B5CF99F72CC74A8600C511DB /* prueba4 */,
 				B5CF9A082CC74A8900C511DB /* prueba4Tests */,
 				B5CF9A122CC74A8900C511DB /* prueba4UITests */,
@@ -236,6 +245,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B527ED752CE7BEDE005493B7 /* User+CoreDataClass.swift in Sources */,
+				B527ED762CE7BEDE005493B7 /* User+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

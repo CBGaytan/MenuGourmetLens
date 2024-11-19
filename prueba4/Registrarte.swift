@@ -72,7 +72,7 @@ struct Registrate: View {
                     Button(action: {
                         showARMenu2 = true
                     }) {
-                        Text("Cancelar")
+                        Text("Conectarse")
                             .font(.title)
                             .padding()
                             .background(Color.white)
@@ -80,7 +80,7 @@ struct Registrate: View {
                             .cornerRadius(30)
                     }
                     .fullScreenCover(isPresented: $showARMenu2) {
-                        WelcomeView()
+                        Iniciar()
                     }
                     .alert(isPresented: $showErrorAlert) {
                         Alert(

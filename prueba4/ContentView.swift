@@ -3,41 +3,33 @@ import RealityKit
 import ARKit
 import Combine
 
+struct Platillo {
+    let nombre: String
+    let precio: Double
+    let modelo: String
+}
+
+
 struct ContentView: View {
     @State private var showARView = false
     @State private var showARView2 = false// Controla si se muestra la vista AR
     @State private var selectedModel: String? // Almacena el modelo seleccionado
     @State private var showIniciar = false
     
-    let modelNames = [
-        "Nuevo proyecto 15",
-        "Nuevo proyecto 4-2",
-        "Nuevo proyecto 16-2",
-        "Nuevo proyecto 6-3",
-        "Nuevo proyecto 5-2",
-        "Nuevo proyecto 7-2",
-        "Nuevo proyecto 10",
-        "Nuevo proyecto 11",
-        "Nuevo proyecto 12",
-        "Nuevo proyecto 13",
-        "Nuevo proyecto 14",
+    let platillos: [Platillo] = [
+        Platillo(nombre: "🍔 Hamburguesa (Combo)", precio: 100.0, modelo: "Nuevo proyecto 15"),
+        Platillo(nombre: "🍔 Hamburguesa", precio: 80.0, modelo: "Nuevo proyecto 4-2"),
+        Platillo(nombre: "🍕🥤 Combo Pizza", precio: 230.0, modelo: "Nuevo proyecto 16-2"),
+        Platillo(nombre: "🍕 Pizza familiar", precio: 99.0, modelo: "Nuevo proyecto 6-3"),
+        Platillo(nombre: "🌮 Tacos", precio: 85.0, modelo: "Nuevo proyecto 5-2"),
+        Platillo(nombre: "🍲 Comida china", precio: 95.0, modelo: "Nuevo proyecto 7-2"),
+        Platillo(nombre: "🍰 Pastel", precio: 200.0, modelo: "Nuevo proyecto 10"),
+        Platillo(nombre: "🍟 Papas fritas", precio: 60.0, modelo: "Nuevo proyecto 11"),
+        Platillo(nombre: "🧆 Platillo del día", precio: 76.0, modelo: "Nuevo proyecto 12"),
+        Platillo(nombre: "🍨 Helado", precio: 29.0, modelo: "Nuevo proyecto 13"),
+        Platillo(nombre: "☕️ Café", precio: 30.0, modelo: "Nuevo proyecto 14")
     ]
-    
-    
-    let modelNames2 = [
-        "🍔 Hamburguesa \n      $100 (Combo)",
-        "🍔 Hamburguesa \n      $80",
-        "🍕🥤 Combo Pizza\n      $230 (Combo)       ",
-        "🍕 Pizza familiar\n      $99    ",
-        "🌮 Tacos \n      $85",
-        "🍲 Comida china\n      $95      ",
-        "🍰 Pastel\n      $200              ",
-        "🍟 Papas fritas\n      $60        ",
-        "🧆 Platillo del dia\n      $76   ",
-        "🍨 Helado\n      $29",
-        "☕️ Cafe\n      $30"
-        
-    ]
+
     var body: some View {
         Group {
             if showARView {
@@ -76,7 +68,7 @@ struct ContentView: View {
                         }
                         .fullScreenCover(isPresented: $showIniciar) {
                             // Llamada a la vista Compras cuando se presione el botón
-                            Compras()
+                           Compras()
                         }
                     }
                     .padding(.horizontal, 20) // Espacio lateral
@@ -86,10 +78,12 @@ struct ContentView: View {
                     
                     ScrollView {
                         VStack(spacing: 20) {
-                            ForEach(0..<modelNames.count, id: \.self) { index in
+                            ForEach(0..<platillos.count, id: \.self) { index in
+                                let platillo = platillos[index]
                                 HStack {
+                                    
                                     // Texto a la izquierda del botón
-                                    Text(modelNames2[index]) // Muestra el nombre del modelo
+                                    Text("\(platillo.nombre)\n$\(platillo.precio, specifier: "%.2f")") // Muestra el nombre del modelo
                                         .font(.title2)
                                         .padding(.trailing, 10) // Espacio entre el texto y el botón
                                     
@@ -97,7 +91,7 @@ struct ContentView: View {
                                     
                                     // Botón para mostrar el modelo en AR
                                     Button(action: {
-                                        selectedModel = modelNames[index] // Modelo seleccionado
+                                        selectedModel = platillo.modelo// Modelo seleccionado
                                         showARView = true
                                     }) {
                                         Image(systemName: "eye") // Icono de ojo
@@ -112,6 +106,7 @@ struct ContentView: View {
                                     // Botón para mostrar la vista de precios
                                     Button(action: {
                                         showARView2 = true
+                                        print("Platillo seleccionado: \(platillo.nombre)")
                                     }) {
                                         Image(systemName: "dollarsign.circle") // Icono de signo de pesos
                                             .font(.title)
@@ -122,7 +117,7 @@ struct ContentView: View {
                                             .cornerRadius(10)
                                     }
                                     .fullScreenCover(isPresented: $showARView2) {
-                                        Compras() // Reemplaza con tu vista personalizada
+                                        Compras()
                                     }
                                 }
                                 .padding(.horizontal, 20) // Espacio lateral
@@ -262,6 +257,7 @@ struct ContentView: View {
                 showARView = false // Regresa a la vista inicial
             }
         }
+        
     }
     
     

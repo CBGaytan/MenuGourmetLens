@@ -7,6 +7,8 @@ Desarrollado para iOS y Android utilizando tecnologías como **SwiftUI**, **Real
 
 ### Visualización AR
 ![Vista de Realidad Aumentada](images/Prueba1.gif)
+<img src="images/WhatsApp%20Image%202024-11-22%20at%2011.35.44%E2%80%AFa.%E2%80%AFm..jpeg" alt="Menú Principal" width="400">
+
 
 ---
 

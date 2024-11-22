@@ -49,7 +49,7 @@ Desarrollado para iOS y Android utilizando tecnologías como **SwiftUI**, **Real
 
 ---
 
-## Instalación (Android)
+## Instalación
 
 1. Clona este repositorio en tu máquina local:
    ```bash

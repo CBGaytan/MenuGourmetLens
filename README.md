@@ -5,6 +5,11 @@ Desarrollado para iOS y Android utilizando tecnologías como **SwiftUI**, **Real
 
 ---
 
+### Visualización AR
+![Vista de Realidad Aumentada](images/Prueba1.gif)
+
+---
+
 ## Características principales
 
 - **Menú interactivo**: Lista de platillos con su nombre, precio y una opción para visualizar modelos 3D en realidad aumentada.

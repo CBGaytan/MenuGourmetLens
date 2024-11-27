@@ -43,19 +43,26 @@ struct prueba4Tests {
             }
         }
     
+        //Prueba de caja negra, determina que los componentes estan bien colocados en su runtime.
         
-        //Prueba de caja negra, para determinar una buena funcionalidad de los componentes sin tener encuenta el codigo interno
         
-        func testButtonNavigation() {
+        func testShowARView() throws {
             let app = XCUIApplication()
             app.launch()
 
-            let comprarButton = app.buttons["Comprar"]
-            XCTAssertTrue(comprarButton.exists, "El botón 'Comprar' debería existir.")
-            comprarButton.tap()
+            // Busca un botón con el icono "eye" para el primer platillo
+            let eyeButton = app.buttons["eye"].firstMatch
+            XCTAssertTrue(eyeButton.exists, "El botón 'eye' debería existir en la lista de platillos.")
 
-            XCTAssertTrue(app.otherElements["ContentView"].exists, "Debería navegar a la vista 'ContentView'.")
+            // Simula la acción de tocar el botón
+            eyeButton.tap()
+
+            // Verifica que la vista AR aparece
+            let arView = app.otherElements["ARViewContainer"]
+            XCTAssertTrue(arView.exists, "La vista AR debería mostrarse después de tocar el botón 'eye'.")
         }
+
+       
 
         //Prueba caja blanca, para determinar la logica interna (calculos de funciones).
         
@@ -65,22 +72,29 @@ struct prueba4Tests {
             XCTAssertEqual(total, 0, "El total debería ser 0 para un carrito vacío.")
         }
 
-        //Prueba de aceptacion, para determinar si la app cumple los requisitos funcionales
-        func testCartDisplay() {
-            let app = XCUIApplication()
-            app.launch()
-            
-            let heladoText = app.staticTexts["Helado x2"]
-            XCTAssertTrue(heladoText.exists, "El producto 'Helado' debería mostrarse en el carrito.")
-
-            let totalText = app.staticTexts["Total: $"]
-            XCTAssertTrue(totalText.exists, "El total debería mostrarse en la vista.")
-        }
-
-        
-        
         
     }
+    
+    
+    //Prueba de aceptacion, permite verificar que los requisitos funcionales de la aplicacion se cumplan
+    func testPlatilloMenuAndNavigation() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        // Verifica que el primer platillo aparece en el menú
+        let primerPlatillo = app.staticTexts["🍔 Hamburguesa (Combo)\n$100.00"]
+        XCTAssertTrue(primerPlatillo.exists, "El primer platillo debería mostrarse en el menú.")
+
+        // Verifica que el botón de carrito existe
+        let cartButton = app.buttons["cart"]
+        XCTAssertTrue(cartButton.exists, "El botón de carrito debería estar visible.")
+
+        // Toca el botón de carrito y verifica que navega a la vista de compras
+        cartButton.tap()
+        let comprasView = app.staticTexts["Compras"] // Cambiar por un identificador válido de la vista Compras
+        XCTAssertTrue(comprasView.exists, "Debería navegar a la vista 'Compras' después de tocar el botón del carrito.")
+    }
+
     
     
    
